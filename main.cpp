@@ -21,7 +21,12 @@ int main() {
   
     hashtable->SetSize(200000);
     fm->LoadHashTable(hashtable);
-    hashtable->SearchHash("JONES");
+    hashtable->Test();
+    
+
+    // Testing the first five Users in the raw.txt file
+    
+
     return 0;
 
 

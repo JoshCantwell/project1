@@ -34,6 +34,8 @@ class HashTable{
         void InsertNode(int position, Node* node);
         void Insert(Node* curr,Node* insert);
 
+        void Test();
+        void TestUser(std::string userid, std::string passwords);
 
     private:
 

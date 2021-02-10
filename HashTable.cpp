@@ -1,5 +1,7 @@
 #include "HashTable.h"
+#include "FileManipulator.h"
 #include "Node.h"
+#include <iomanip>
 int HashTable::GetSize() {
 
     return hashTable.size();
@@ -22,19 +24,13 @@ Node* HashTable::SearchHash(std::string userid) {
     int hashCode =  HashFunction(userid);
     if(hashTable.at(hashCode) == NULL) {
        
-        std::cout << "userid not found in hash table" << std::endl;
         return NULL;
-        std::cout << "userid not found in hash table" << std::endl;
     } else {
         if(hashTable.at(hashCode)->getUserid() == userid) {
 
-            std::cout << "user found" << std::endl;
             return hashTable.at(hashCode);
         } else {
 
-            //std::cout << hashTable.at(hashCode)->getUserid() << std::endl;
-        
-            //std::cout << hashCode << std::endl;
             Search(userid, hashTable.at(hashCode)->getNextNode()); 
         }
     }
@@ -44,14 +40,11 @@ Node* HashTable::Search(std::string userid, Node* curr) {
 
     if(userid == curr->getUserid()) {
 
-        std::cout << "user found on recursive" << std::endl;    
-        std::cout << curr->getUserid() << " " << curr->getPassword() << std::endl;
         return curr;
     } else {
 
         if(curr->getNextNode() == NULL) {
 
-            std::cout << "user not found in hash" << std::endl;
             return NULL;
         } else {
 
@@ -117,3 +110,75 @@ int HashTable::HashFunction(Node* node) {
 
     return hashValue;
 }
+
+void HashTable::Test() {
+
+    std::string userid [5] = {"SMITH", "JOHNSON", "WILLIAMS", "JONES", "BROWN"}; 
+    std::string Passwords [5] = {"nwlrbbmqb", "ebgnhamdh", "gvwqtyskr", "hxkovzdbw", "tlwqsokph"};
+    std::string wrongPasswords [5] = {"awlrbbmgb", "abgnhamdh", "avwqtyskr", "axkovzdbw", "alwqsokph"};
+
+    std::cout << "Leagal:" << std::endl;
+    std::cout << std::setw(12) << "Userid"  << " " << std::setw(12)<< "Password" <<  " " << std::setw(12) << "Result" << std::setw(12) << " " << std::setw(12) <<std::endl;
+    for(int i = 0; i <= 4; i++) {
+
+        TestUser(userid[i], Passwords[i]);
+
+    }
+    std::cout << std::endl;
+    std::cout << "Illegal:" << std::endl;
+
+    std::cout << std::setw(12) << "Userid"  << " " << std::setw(12)<< "Password" <<  " " << std::setw(12) << "Result" << std::setw(12) << " " << std::setw(12) <<std::endl;
+    for(int i = 0; i <= 4; i++) {
+
+        TestUser(userid[i], wrongPasswords[i]);
+    }
+
+
+}
+
+void HashTable::TestUser(std::string userid, std::string passwords) {
+
+
+    FileManipulator* fm;
+    Node* curr = SearchHash(userid);
+    std::cout << std::setw(12) << curr->getUserid() << " " << std::setw(12) << curr->getPassword() << " " << std::setw(12); 
+    if(curr->getPassword() == fm->Encrypt(passwords)) {
+
+        std::cout << "match" << std::endl;
+    } else {
+
+        std::cout << "no match" << std::endl;
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
