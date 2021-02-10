@@ -10,6 +10,7 @@
 #ifndef _filemanipulator_h_
 #define _filemanipulator_h_
 
+#include "HashTable.h"
 #include <fstream>
 #include <iostream>
 
@@ -24,8 +25,13 @@ class FileManipulator {
             }
 
 
+            void LoadHashTable(HashTable* hashTable);
+            void PasswordEncrypter(); 
             void ProcessUsers();
-            std::string RandomPassword();
+            std::string RandomPassword(int num3);
+            std::string Encrypt(std::string password);
+        
+        
         private:
 
 

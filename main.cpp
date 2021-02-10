@@ -8,17 +8,20 @@
 */
 #include "FileManipulator.h"
 #include <iostream>
+#include "HashTable.h"
 
 int main() {
 
-
+    HashTable* hashtable;
     FileManipulator* fm;
-
-   fm = new FileManipulator();
-    
-
-   fm->ProcessUsers();
-
+    fm = new FileManipulator();
+    hashtable = new HashTable(); 
+    fm->ProcessUsers();
+    fm->PasswordEncrypter();
+  
+    hashtable->SetSize(200000);
+    fm->LoadHashTable(hashtable);
+    hashtable->SearchHash("JONES");
     return 0;
 
 
